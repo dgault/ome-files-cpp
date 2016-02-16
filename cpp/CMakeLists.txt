@@ -39,7 +39,7 @@ set(OME_TOPLEVEL_INCLUDES
     ${CMAKE_CURRENT_BINARY_DIR}/lib)
 
 # Add test, making sure it's run with a suitable environment.
-# If updated, make sure to update the wrappers in cpp/cmake.
+# If updated, make sure to update the wrappers in cmake.
 function(bf_add_test)
   add_test(${ARGV})
   set_tests_properties(${ARGV0}
