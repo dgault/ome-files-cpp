@@ -148,8 +148,6 @@ set(OME_TOPLEVEL_INCLUDES
 # If updated, make sure to update the wrappers in cmake/.
 function(bf_add_test)
   add_test(${ARGV})
-  set_tests_properties(${ARGV0}
-    PROPERTIES ENVIRONMENT "BIOFORMATS_SCHEMADIR=${PROJECT_SOURCE_DIR}/components/specification/released-schema;BIOFORMATS_TRANSFORMDIR=${PROJECT_SOURCE_DIR}/components/specification/transforms")
 endfunction()
 
 add_subdirectory(lib)
