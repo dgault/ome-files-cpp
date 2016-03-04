@@ -43,8 +43,6 @@
 
 #include <ome/files/FormatReader.h>
 
-#include <ome/bioformats/FormatReader.h>
-
 #include <ome/qtwidgets/glm.h>
 #include <ome/qtwidgets/GLWindow.h>
 #include <ome/qtwidgets/gl/Image2D.h>
