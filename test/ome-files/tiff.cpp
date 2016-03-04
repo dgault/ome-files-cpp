@@ -82,7 +82,7 @@ namespace
 
   struct DumpPixelBufferVisitor : public boost::static_visitor<>
   {
-    typedef ::ome::files::PixelProperties< ::ome::xml::model::enums::PixelType::BIT>::std_type bit_type;
+    typedef ::ome::files::PixelProperties<::ome::xml::model::enums::PixelType::BIT>::std_type bit_type;
 
     std::ostream& stream;
 
@@ -94,7 +94,7 @@ namespace
     typename boost::enable_if_c<
       boost::is_integral<T>::value, float
       >::type
-    dump(const std::shared_ptr< ::ome::files::PixelBuffer<T>>&      buf,
+    dump(const std::shared_ptr<::ome::files::PixelBuffer<T>>&       buf,
          const typename ::ome::files::PixelBuffer<T>::indices_type& idx) const
     {
       float v = static_cast<float>(buf->at(idx));
@@ -107,7 +107,7 @@ namespace
     typename boost::enable_if_c<
       boost::is_floating_point<T>::value, float
       >::type
-    dump(const std::shared_ptr< ::ome::files::PixelBuffer<T>>&      buf,
+    dump(const std::shared_ptr<::ome::files::PixelBuffer<T>>&       buf,
          const typename ::ome::files::PixelBuffer<T>::indices_type& idx) const
     {
       // Assume float is already normalised.
@@ -118,7 +118,7 @@ namespace
     typename boost::enable_if_c<
       boost::is_complex<T>::value, float
       >::type
-    dump(const std::shared_ptr< ::ome::files::PixelBuffer<T>>&      buf,
+    dump(const std::shared_ptr<::ome::files::PixelBuffer<T>>&       buf,
          const typename ::ome::files::PixelBuffer<T>::indices_type& idx) const
     {
       // Assume float is already normalised.
@@ -129,8 +129,8 @@ namespace
     // and the upper half being set to true for the destination boolean
     // pixel type.
     float
-    dump(const std::shared_ptr< ::ome::files::PixelBuffer<bit_type>>& buf,
-         const ::ome::files::PixelBuffer<bit_type>::indices_type&     idx)
+    dump(const std::shared_ptr<::ome::files::PixelBuffer<bit_type>>& buf,
+         const ::ome::files::PixelBuffer<bit_type>::indices_type&    idx)
     {
       return buf->at(idx) ? 1.0f : 0.0f;
     }
