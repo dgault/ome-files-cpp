@@ -39,13 +39,15 @@
 
 #include <boost/format.hpp>
 
-#include <ome/files/Version.h>
+// Include before other headers to ensure MPL limits are set.
+#include <info/ImageInfo.h>
+#include <info/options.h>
 
+#include <ome/common/config.h>
 #include <ome/common/log.h>
 #include <ome/common/module.h>
 
-#include <info/options.h>
-#include <info/ImageInfo.h>
+#include <ome/files/Version.h>
 
 #ifdef _MSC_VER
 #  include <windows.h>

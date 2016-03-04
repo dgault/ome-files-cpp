@@ -42,6 +42,7 @@
 #include <string>
 #include <stdexcept>
 
+#include <ome/common/config.h> // To avoid program_options setting unusable MPL limits
 #include <boost/program_options.hpp>
 
 #include <ome/files/Types.h>

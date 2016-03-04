@@ -42,8 +42,7 @@
 #include <string>
 #include <stdexcept>
 
-#include <boost/program_options.hpp>
-
+#include <ome/common/config.h>
 #include <ome/common/log.h>
 
 #include <ome/files/FormatReader.h>
