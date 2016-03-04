@@ -145,7 +145,7 @@ namespace
 
     template<typename T>
     void
-    transfer(ome::compat::shared_ptr<T>& buffer,
+    transfer(std::shared_ptr<T>& buffer,
              typename T::indices_type&   destidx,
              const TileBuffer&           tilebuf,
              PlaneRegion&                rfull,
@@ -195,7 +195,7 @@ namespace
 
     // Special case for BIT
     void
-    transfer(ome::compat::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type> >& buffer,
+    transfer(std::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type> >& buffer,
              PixelBuffer<PixelProperties<PixelType::BIT>::std_type>::indices_type&             destidx,
              const TileBuffer&                                                                 tilebuf,
              PlaneRegion&                                                                      rfull,
@@ -239,7 +239,7 @@ namespace
 
     template<typename T>
     dimension_size_type
-    expected_read(const ome::compat::shared_ptr<T>& /* buffer */,
+    expected_read(const std::shared_ptr<T>& /* buffer */,
                   const PlaneRegion&                rclip,
                   uint16_t                          copysamples) const
     {
@@ -248,7 +248,7 @@ namespace
 
     // Special case for BIT
     dimension_size_type
-    expected_read(const ome::compat::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type> >& /* buffer */,
+    expected_read(const std::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type> >& /* buffer */,
                   const PlaneRegion&                                                                      rclip,
                   uint16_t                                                                                copysamples) const
     {
@@ -264,9 +264,9 @@ namespace
 
     template<typename T>
     void
-    operator()(ome::compat::shared_ptr<T>& buffer)
+    operator()(std::shared_ptr<T>& buffer)
     {
-      ome::compat::shared_ptr< ::ome::files::tiff::TIFF>& tiff(ifd.getTIFF());
+      std::shared_ptr< ::ome::files::tiff::TIFF>& tiff(ifd.getTIFF());
       ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
       TileType type = tileinfo.tileType();
 
@@ -350,7 +350,7 @@ namespace
     void
     flush()
     {
-      ome::compat::shared_ptr< ::ome::files::tiff::TIFF>& tiff(ifd.getTIFF());
+      std::shared_ptr< ::ome::files::tiff::TIFF>& tiff(ifd.getTIFF());
       ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
       TileType type = tileinfo.tileType();
       PlaneRegion rimage(0, 0, ifd.getImageWidth(), ifd.getImageHeight());
@@ -393,7 +393,7 @@ namespace
 
     template<typename T>
     void
-    transfer(const ome::compat::shared_ptr<T>& buffer,
+    transfer(const std::shared_ptr<T>& buffer,
              typename T::indices_type&         srcidx,
              TileBuffer&                       tilebuf,
              PlaneRegion&                      rfull,
@@ -447,7 +447,7 @@ namespace
 
     // Special case for BIT
     void
-    transfer(const ome::compat::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type> >& buffer,
+    transfer(const std::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type> >& buffer,
              PixelBuffer<PixelProperties<PixelType::BIT>::std_type>::indices_type&                   srcidx,
              TileBuffer&                                                                             tilebuf,
              PlaneRegion&                                                                            rfull,
@@ -493,7 +493,7 @@ namespace
 
     template<typename T>
     void
-    operator()(const ome::compat::shared_ptr<T>& buffer)
+    operator()(const std::shared_ptr<T>& buffer)
     {
       uint16_t samples = ifd.getSamplesPerPixel();
       PlanarConfiguration planarconfig = ifd.getPlanarConfiguration();
@@ -521,7 +521,7 @@ namespace
           // Note boost::make_shared makes arguments const, so can't use
           // here.
           if (!tilecache.find(tile))
-            tilecache.insert(tile, ome::compat::shared_ptr<TileBuffer>(new TileBuffer(tileinfo.bufferSize())));
+            tilecache.insert(tile, std::shared_ptr<TileBuffer>(new TileBuffer(tileinfo.bufferSize())));
           assert(tilecache.find(tile));
           TileBuffer& tilebuf = *tilecache.find(tile);
 
@@ -557,13 +557,13 @@ namespace ome
         class IFDConcrete : public IFD
         {
         public:
-          IFDConcrete(ome::compat::shared_ptr<TIFF>& tiff,
+          IFDConcrete(std::shared_ptr<TIFF>& tiff,
                       offset_type            offset):
             IFD(tiff, offset)
           {
           }
 
-          IFDConcrete(ome::compat::shared_ptr<TIFF>& tiff):
+          IFDConcrete(std::shared_ptr<TIFF>& tiff):
             IFD(tiff, 0)
           {
           }
@@ -583,7 +583,7 @@ namespace ome
       {
       public:
         /// Reference to the parent TIFF.
-        ome::compat::shared_ptr<TIFF> tiff;
+        std::shared_ptr<TIFF> tiff;
         /// Offset of this IFD.
         offset_type offset;
         /// Tile coverage cache (used when writing).
@@ -619,7 +619,7 @@ namespace ome
          * @param tiff the parent TIFF.
          * @param offset the IFD offset.
          */
-        Impl(ome::compat::shared_ptr<TIFF>& tiff,
+        Impl(std::shared_ptr<TIFF>& tiff,
              offset_type                    offset):
           tiff(tiff),
           offset(offset),
@@ -650,18 +650,18 @@ namespace ome
         operator= (const Impl&);
       };
 
-      IFD::IFD(ome::compat::shared_ptr<TIFF>& tiff,
+      IFD::IFD(std::shared_ptr<TIFF>& tiff,
                offset_type                    offset):
         // Note boost::make_shared makes arguments const, so can't use
         // here.
-        impl(ome::compat::shared_ptr<Impl>(new Impl(tiff, offset)))
+        impl(std::shared_ptr<Impl>(new Impl(tiff, offset)))
       {
       }
 
-      IFD::IFD(ome::compat::shared_ptr<TIFF>& tiff):
+      IFD::IFD(std::shared_ptr<TIFF>& tiff):
         // Note boost::make_shared makes arguments const, so can't use
         // here.
-        impl(ome::compat::shared_ptr<Impl>(new Impl(tiff, 0)))
+        impl(std::shared_ptr<Impl>(new Impl(tiff, 0)))
       {
       }
 
@@ -669,8 +669,8 @@ namespace ome
       {
       }
 
-      ome::compat::shared_ptr<IFD>
-      IFD::openIndex(ome::compat::shared_ptr<TIFF>& tiff,
+      std::shared_ptr<IFD>
+      IFD::openIndex(std::shared_ptr<TIFF>& tiff,
                      directory_index_type           index)
       {
         ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
@@ -685,27 +685,27 @@ namespace ome
         return openOffset(tiff, static_cast<uint64_t>(TIFFCurrentDirOffset(tiffraw)));
       }
 
-      ome::compat::shared_ptr<IFD>
-      IFD::openOffset(ome::compat::shared_ptr<TIFF>& tiff,
+      std::shared_ptr<IFD>
+      IFD::openOffset(std::shared_ptr<TIFF>& tiff,
                       offset_type                    offset)
       {
         // Note boost::make_shared makes arguments const, so can't use
         // here.
-        return ome::compat::shared_ptr<IFD>(new IFDConcrete(tiff, offset));
+        return std::shared_ptr<IFD>(new IFDConcrete(tiff, offset));
       }
 
-      ome::compat::shared_ptr<IFD>
-      IFD::current(ome::compat::shared_ptr<TIFF>& tiff)
+      std::shared_ptr<IFD>
+      IFD::current(std::shared_ptr<TIFF>& tiff)
       {
         // Note boost::make_shared makes arguments const, so can't use
         // here.
-        return ome::compat::shared_ptr<IFD>(new IFDConcrete(tiff));
+        return std::shared_ptr<IFD>(new IFDConcrete(tiff));
       }
 
       void
       IFD::makeCurrent() const
       {
-        ome::compat::shared_ptr<TIFF>& tiff = getTIFF();
+        std::shared_ptr<TIFF>& tiff = getTIFF();
         ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
 
         Sentry sentry;
@@ -722,7 +722,7 @@ namespace ome
           }
       }
 
-      ome::compat::shared_ptr<TIFF>&
+      std::shared_ptr<TIFF>&
       IFD::getTIFF() const
       {
         return impl->tiff;
@@ -738,7 +738,7 @@ namespace ome
       IFD::getRawField(tag_type tag,
                        ...) const
       {
-        ome::compat::shared_ptr<TIFF>& tiff = getTIFF();
+        std::shared_ptr<TIFF>& tiff = getTIFF();
         ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
 
         Sentry sentry;
@@ -767,7 +767,7 @@ namespace ome
       IFD::setRawField(tag_type tag,
                        ...)
       {
-        ome::compat::shared_ptr<TIFF>& tiff = getTIFF();
+        std::shared_ptr<TIFF>& tiff = getTIFF();
         ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
 
         Sentry sentry;
@@ -1265,8 +1265,8 @@ namespace ome
 
         buf.setBuffer(shape, PixelType::UINT16, order_planar);
 
-        ome::compat::shared_ptr<PixelBuffer<PixelProperties<PixelType::UINT16>::std_type> > uint16_buffer
-          (boost::get<ome::compat::shared_ptr<PixelBuffer<PixelProperties<PixelType::UINT16>::std_type> > >(buf.vbuffer()));
+        std::shared_ptr<PixelBuffer<PixelProperties<PixelType::UINT16>::std_type> > uint16_buffer
+          (boost::get<std::shared_ptr<PixelBuffer<PixelProperties<PixelType::UINT16>::std_type> > >(buf.vbuffer()));
         assert(uint16_buffer);
 
         for (VariantPixelBuffer::size_type s = 0U; s < shape[DIM_SUBCHANNEL]; ++s)
@@ -1387,12 +1387,12 @@ namespace ome
         throw Exception("Writing subchannels separately is not yet implemented (requires TileCache and WriteVisitor to handle writing and caching of interleaved and non-interleaved subchannels; currently it handles writing all subchannels in one call only and can not combine separate subchannels from separate calls");
       }
 
-      ome::compat::shared_ptr<IFD>
+      std::shared_ptr<IFD>
       IFD::next() const
       {
-        ome::compat::shared_ptr<IFD> ret;
+        std::shared_ptr<IFD> ret;
 
-        ome::compat::shared_ptr<TIFF>& tiff = getTIFF();
+        std::shared_ptr<TIFF>& tiff = getTIFF();
         ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
 
         Sentry sentry;
@@ -1411,7 +1411,7 @@ namespace ome
       bool
       IFD::last() const
       {
-        ome::compat::shared_ptr<TIFF>& tiff = getTIFF();
+        std::shared_ptr<TIFF>& tiff = getTIFF();
         ::TIFF *tiffraw = reinterpret_cast< ::TIFF *>(tiff->getWrapped());
 
         Sentry sentry;

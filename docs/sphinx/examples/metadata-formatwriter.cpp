@@ -36,6 +36,7 @@
  */
 
 #include <iostream>
+#include <memory>
 
 #include <ome/files/CoreMetadata.h>
 #include <ome/files/MetadataTools.h>
@@ -43,13 +44,11 @@
 #include <ome/files/out/OMETIFFWriter.h>
 #include <ome/xml/meta/OMEXMLMetadata.h>
 
-#include <ome/compat/memory.h>
-
 #include <ome/common/filesystem.h>
 
 using boost::filesystem::path;
-using ome::compat::make_shared;
-using ome::compat::shared_ptr;
+using std::make_shared;
+using std::shared_ptr;
 using ome::files::dimension_size_type;
 using ome::files::fillMetadata;
 using ome::files::CoreMetadata;

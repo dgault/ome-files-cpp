@@ -74,9 +74,9 @@ namespace ome
   namespace qtwidgets
   {
 
-    GLView2D::GLView2D(ome::compat::shared_ptr<ome::files::FormatReader>  reader,
-                       ome::files::dimension_size_type                    series,
-                       QWidget                                                * /* parent */):
+    GLView2D::GLView2D(std::shared_ptr<ome::files::FormatReader>  reader,
+                       ome::files::dimension_size_type            series,
+                       QWidget                                   * /* parent */):
       GLWindow(),
       camera(),
       mouseMode(MODE_ZOOM),
@@ -109,7 +109,7 @@ namespace ome
       return QSize(800, 600);
     }
 
-    ome::compat::shared_ptr<ome::files::FormatReader>
+    std::shared_ptr<ome::files::FormatReader>
     GLView2D::getReader()
     {
       return reader;

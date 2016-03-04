@@ -36,8 +36,7 @@
  */
 
 #include <iostream>
-
-#include <ome/compat/memory.h>
+#include <memory>
 
 #include <ome/common/filesystem.h>
 #include <ome/common/xml/Platform.h>
@@ -52,8 +51,8 @@
 
 using boost::filesystem::path;
 using ome::compat::array;
-using ome::compat::make_shared;
-using ome::compat::shared_ptr;
+using std::make_shared;
+using std::shared_ptr;
 using ome::files::dimension_size_type;
 using ome::files::addMetadataOnly;
 using ome::files::createOMEXMLMetadata;
