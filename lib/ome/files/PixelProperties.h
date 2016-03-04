@@ -39,11 +39,10 @@
 #define OME_FILES_PIXELPROPERTIES_H
 
 #include <complex>
+#include <cstdint>
 
 #include <ome/common/boolean.h>
 #include <ome/common/endian.h>
-
-#include <ome/compat/cstdint.h>
 
 #include <ome/files/Types.h>
 

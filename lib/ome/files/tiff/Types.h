@@ -40,7 +40,7 @@
 
 #include <ome/files/Types.h>
 
-#include <ome/compat/cstdint.h>
+#include <cstdint>
 
 namespace ome
 {
