@@ -39,8 +39,6 @@
 
 #include <ome/files/tiff/Codec.h>
 
-#include <ome/bioformats/tiff/Codec.h>
-
 #include <tiffio.h>
 
 namespace ome
