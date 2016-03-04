@@ -145,12 +145,12 @@ namespace
 
     template<typename T>
     void
-    transfer(std::shared_ptr<T>& buffer,
-             typename T::indices_type&   destidx,
-             const TileBuffer&           tilebuf,
-             PlaneRegion&                rfull,
-             PlaneRegion&                rclip,
-             uint16_t                    copysamples)
+    transfer(std::shared_ptr<T>&       buffer,
+             typename T::indices_type& destidx,
+             const TileBuffer&         tilebuf,
+             PlaneRegion&              rfull,
+             PlaneRegion&              rclip,
+             uint16_t                  copysamples)
     {
       if (rclip.w == rfull.w &&
           rclip.x == region.x &&
@@ -196,11 +196,11 @@ namespace
     // Special case for BIT
     void
     transfer(std::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type>>& buffer,
-             PixelBuffer<PixelProperties<PixelType::BIT>::std_type>::indices_type&             destidx,
-             const TileBuffer&                                                                 tilebuf,
-             PlaneRegion&                                                                      rfull,
-             PlaneRegion&                                                                      rclip,
-             uint16_t                                                                          copysamples)
+             PixelBuffer<PixelProperties<PixelType::BIT>::std_type>::indices_type&    destidx,
+             const TileBuffer&                                                        tilebuf,
+             PlaneRegion&                                                             rfull,
+             PlaneRegion&                                                             rclip,
+             uint16_t                                                                 copysamples)
     {
       // Unpack bits from buffer.
 
@@ -240,8 +240,8 @@ namespace
     template<typename T>
     dimension_size_type
     expected_read(const std::shared_ptr<T>& /* buffer */,
-                  const PlaneRegion&                rclip,
-                  uint16_t                          copysamples) const
+                  const PlaneRegion&        rclip,
+                  uint16_t                  copysamples) const
     {
       return rclip.w * rclip.h * copysamples * sizeof(typename T::value_type);
     }
@@ -249,8 +249,8 @@ namespace
     // Special case for BIT
     dimension_size_type
     expected_read(const std::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type>>& /* buffer */,
-                  const PlaneRegion&                                                                      rclip,
-                  uint16_t                                                                                copysamples) const
+                  const PlaneRegion&                                                             rclip,
+                  uint16_t                                                                       copysamples) const
     {
       dimension_size_type expectedread = rclip.w;
 
@@ -394,11 +394,11 @@ namespace
     template<typename T>
     void
     transfer(const std::shared_ptr<T>& buffer,
-             typename T::indices_type&         srcidx,
-             TileBuffer&                       tilebuf,
-             PlaneRegion&                      rfull,
-             PlaneRegion&                      rclip,
-             uint16_t                          copysamples)
+             typename T::indices_type& srcidx,
+             TileBuffer&               tilebuf,
+             PlaneRegion&              rfull,
+             PlaneRegion&              rclip,
+             uint16_t                  copysamples)
     {
       if (rclip.w == rfull.w &&
           rclip.x == region.x &&
@@ -448,11 +448,11 @@ namespace
     // Special case for BIT
     void
     transfer(const std::shared_ptr<PixelBuffer<PixelProperties<PixelType::BIT>::std_type>>& buffer,
-             PixelBuffer<PixelProperties<PixelType::BIT>::std_type>::indices_type&                   srcidx,
-             TileBuffer&                                                                             tilebuf,
-             PlaneRegion&                                                                            rfull,
-             PlaneRegion&                                                                            rclip,
-             uint16_t                                                                                copysamples)
+             PixelBuffer<PixelProperties<PixelType::BIT>::std_type>::indices_type&          srcidx,
+             TileBuffer&                                                                    tilebuf,
+             PlaneRegion&                                                                   rfull,
+             PlaneRegion&                                                                   rclip,
+             uint16_t                                                                       copysamples)
     {
       // Pack bits into buffer.
 
@@ -620,7 +620,7 @@ namespace ome
          * @param offset the IFD offset.
          */
         Impl(std::shared_ptr<TIFF>& tiff,
-             offset_type                    offset):
+             offset_type            offset):
           tiff(tiff),
           offset(offset),
           coverage(),
@@ -651,7 +651,7 @@ namespace ome
       };
 
       IFD::IFD(std::shared_ptr<TIFF>& tiff,
-               offset_type                    offset):
+               offset_type            offset):
         // Note boost::make_shared makes arguments const, so can't use
         // here.
         impl(std::shared_ptr<Impl>(new Impl(tiff, offset)))
@@ -671,7 +671,7 @@ namespace ome
 
       std::shared_ptr<IFD>
       IFD::openIndex(std::shared_ptr<TIFF>& tiff,
-                     directory_index_type           index)
+                     directory_index_type   index)
       {
         ::TIFF *tiffraw = reinterpret_cast<::TIFF *>(tiff->getWrapped());
 
@@ -687,7 +687,7 @@ namespace ome
 
       std::shared_ptr<IFD>
       IFD::openOffset(std::shared_ptr<TIFF>& tiff,
-                      offset_type                    offset)
+                      offset_type            offset)
       {
         // Note boost::make_shared makes arguments const, so can't use
         // here.

@@ -1052,7 +1052,7 @@ namespace ome
       }
 
       void
-      OMETIFFReader::getAcquisitionDates(const ome::xml::meta::OMEXMLMetadata&                                  meta,
+      OMETIFFReader::getAcquisitionDates(const ome::xml::meta::OMEXMLMetadata&                                 meta,
                                          std::vector<boost::optional<ome::xml::model::primitives::Timestamp>>& timestamps)
       {
         for (index_type i = 0; i < meta.getImageCount(); ++i)

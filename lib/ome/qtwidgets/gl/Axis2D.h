@@ -80,7 +80,7 @@ namespace ome
          */
         explicit Axis2D(std::shared_ptr<ome::files::FormatReader>  reader,
                         ome::files::dimension_size_type            series,
-                        QObject                                                *parent = 0);
+                        QObject                                   *parent = 0);
 
         /// Destructor.
         virtual
