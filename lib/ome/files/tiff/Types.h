@@ -184,7 +184,7 @@ namespace ome
           UNSIGNED_INT = 1, ///< Unsigned integer.
           SIGNED_INT = 2,   ///< Signed integer.
           FLOAT = 3,        ///< IEEE floating point.
-          VOID = 4,         ///< Void.
+          UNDEFINED = 4,    ///< Void.  Named UNDEFINED to avoid clash with MSVC headers which define a VOID macro.
           COMPLEX_INT = 5,  ///< Complex integer.
           COMPLEX_FLOAT = 6 ///< Complex IEEE floating point.
         };
